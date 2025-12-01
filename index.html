@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATELIÉR NOIR | Modern Nail Studio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Cormorant Garamond (Sharp, Editorial Serif) + Inter (Clean Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nude-50': '#FAFAF9',
+                        'nude-100': '#F5F5F4',
+                        'nude-200': '#E7E5E4',
+                        'nude-300': '#D6D3D1',
+                        'clay': '#A8A29E',     /* Moderní šedohnědá */
+                        'rouge': '#78350F',    /* Hluboká hnědá/rudá pro akcent */
+                        'noir': '#0C0A09',     /* Off-black */
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'arch': '150px 150px 0 0', /* Tvar nehtu / oblouk */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth scrolling & basics */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom Cursor for that artistic feel */
+        body { cursor: default; }
+        
+        /* Image Reveal Mask */
+        .reveal-img {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .reveal-img.active {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Text Slide Up */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .slide-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Marquee Animation */
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Navigation Blur */
+        .nav-blur {
+            background: rgba(250, 250, 249, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-nude-50 text-noir font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center" id="navbar">
+        <a href="#" class="font-serif text-3xl md:text-4xl font-semibold tracking-tight z-50 relative text-nude-50 md:text-noir">
+            NOIR<span class="text-nude-200 md:text-clay text-4xl">.</span>
+        </a>
+
+        <!-- Desktop Links - Absolutely positioned to center -->
+        <div class="hidden md:flex items-center space-x-12 font-sans text-sm tracking-widest uppercase font-medium text-noir/70 absolute left-1/2 -translate-x-1/2">
+            <a href="#about" class="hover:text-rouge transition-colors">Studio</a>
+            <a href="#menu" class="hover:text-rouge transition-colors">Menu</a>
+            <a href="#gallery" class="hover:text-rouge transition-colors">Vizuál</a>
+            <a href="#booking" class="px-6 py-2 border border-noir/20 rounded-full hover:bg-noir hover:text-white transition-all duration-300">
+                Rezervace
+            </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="menu-btn" class="md:hidden z-50 text-nude-50 focus:outline-none group">
+            <div class="w-8 h-[1px] bg-current mb-2 transition-all group-hover:w-6 ml-auto"></div>
+            <div class="w-8 h-[1px] bg-current transition-all"></div>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-nude-100 z-[60] flex flex-col justify-center items-center opacity-0 pointer-events-none transition duration-500">
+        <!-- Close Button -->
+        <button id="close-menu" class="absolute top-8 right-6 text-noir focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <div class="flex flex-col space-y-6 text-center">
+            <a href="#about" class="font-serif text-4xl hover:text-rouge transition mobile-link">Studio</a>
+            <a href="#menu" class="font-serif text-4xl hover:text-rouge transition mobile-link">Menu Služeb</a>
+            <a href="#gallery" class="font-serif text-4xl hover:text-rouge transition mobile-link">Galerie</a>
+            <a href="#booking" class="font-serif text-4xl hover:text-rouge transition mobile-link">Kontakt</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen pt-24 pb-12 px-4 md:px-12 flex flex-col justify-center relative overflow-hidden">
+        <!-- Mobile: Full-width background image with gradient -->
+        <div class="absolute inset-0 w-full h-full md:hidden">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=2070&auto=format&fit=crop"
+                 alt="Nail Art Detail"
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-noir/80 via-noir/40 to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+
+            <!-- Typography Hero -->
+            <div class="lg:col-span-7">
+                <span class="block font-medium tracking-widest text-xs uppercase mb-6 text-nude-50 md:text-rouge px-4 py-2 bg-noir/30 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none rounded-full inline-block">Ostrava — Est. 2024</span>
+                <h1 class="font-serif text-5xl md:text-8xl lg:text-9xl leading-[0.9] mb-8 text-nude-50 md:text-noir">
+                    Moderní <br>
+                    <span class="italic font-light text-nude-200/90 md:text-clay/80">pojetí</span> krásy
+                </h1>
+                <p class="max-w-md leading-relaxed text-base md:text-lg mb-10 font-light text-nude-100/90 md:text-noir/60">
+                    Místo, kde se preciznost setkává s uměním. Specializujeme se na naturální vzhled, zdraví nehtů a minimalistický design.
+                </p>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                    <a href="#booking" class="bg-noir text-nude-50 px-8 py-4 rounded-full text-xs uppercase tracking-widest hover:bg-rouge transition duration-500 text-center w-full sm:w-auto">
+                        Chci termín
+                    </a>
+                    <a href="#menu" class="group flex items-center gap-2 text-xs uppercase tracking-widest transition">
+                        <span class="text-nude-50 md:text-noir group-hover:text-nude-200 md:group-hover:text-rouge">Prohlédnout ceník</span>
+                        <svg class="w-4 h-4 text-nude-50 md:text-noir group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image Hero (Arch Shape) - Desktop Only -->
+            <div class="lg:col-span-5 relative h-[500px] lg:h-[700px] w-full hidden md:block">
+                <div class="absolute inset-0 rounded-arch overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=2070&auto=format&fit=crop"
+                         alt="Nail Art Detail"
+                         class="w-full h-full object-cover hover:scale-105 transition duration-[1.5s]">
+                </div>
+                <!-- Floating Badge -->
+                <div class="absolute -bottom-6 -left-6 bg-nude-50 p-6 rounded-full shadow-xl animate-pulse">
+                    <div class="border border-noir/10 rounded-full p-4 w-24 h-24 flex items-center justify-center text-center">
+                        <span class="font-serif italic leading-none text-sm">Best of<br>Ostrava</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Subtle Section Divider -->
+    <div class="py-8 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-8 text-noir/20">
+            <div class="h-[1px] w-full max-w-xs bg-noir/10"></div>
+            <span class="font-serif italic text-sm whitespace-nowrap text-noir/40">Ostrava</span>
+            <div class="h-[1px] w-full max-w-xs bg-noir/10"></div>
+        </div>
+    </div>
+
+    <!-- About / Philosophy Section -->
+    <section id="about" class="py-24 px-4 md:px-12 bg-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            
+            <div class="relative group slide-up">
+                <!-- Decorative Circle -->
+                <div class="absolute -top-10 -left-10 w-32 h-32 bg-nude-100 rounded-full -z-10 group-hover:scale-110 transition duration-700"></div>
+                <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?q=80&w=1931&auto=format&fit=crop" 
+                     alt="Clean Manicure" 
+                     class="w-full h-[500px] object-cover rounded-sm grayscale group-hover:grayscale-0 transition duration-700">
+            </div>
+
+            <div class="slide-up">
+                <h2 class="font-serif text-5xl md:text-6xl mb-8 leading-tight">
+                    Čisté linie. <br>
+                    <span class="text-clay italic">Žádný kompromis.</span>
+                </h2>
+                <div class="space-y-6 text-noir/70 text-lg font-light">
+                    <p>
+                        V Ateliéru Noir věříme, že ruce jsou vaší vizitkou. Odklonili jsme se od přeplácaných designů a vracíme se k podstatě – dokonale upravenému tvaru a zdravé nehtové ploténce.
+                    </p>
+                    <p>
+                        Používáme výhradně veganské laky a hypoalergenní gely, které nezatěžují vaše nehty. Naše studio v Ostravě je navrženo jako galerie, kde jste uměleckým dílem vy.
+                    </p>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-3 gap-8 border-t border-nude-200 pt-8">
+                    <div>
+                        <span class="block font-serif text-3xl">100%</span>
+                        <span class="text-xs uppercase tracking-widest text-noir/50">Hygiena</span>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-3xl">Vegan</span>
+                        <span class="text-xs uppercase tracking-widest text-noir/50">Produkty</span>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-3xl">5.0</span>
+                        <span class="text-xs uppercase tracking-widest text-noir/50">Google</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Menu -->
+    <section id="menu" class="py-24 px-4 md:px-12 bg-nude-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 slide-up">
+                <h3 class="font-serif text-5xl md:text-6xl text-noir">Naše Menu</h3>
+                <p class="mt-4 text-noir/50 font-sans uppercase tracking-widest text-sm">Vyberte si svou péči</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12">
+                <!-- Col 1 -->
+                <div class="space-y-10 slide-up">
+                    <h4 class="font-sans font-bold text-xl uppercase tracking-widest border-b border-noir/10 pb-4 mb-6">Ruce</h4>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">Signature Manicure</h5>
+                            <span class="font-serif text-xl">890 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Komplexní péče, úprava kůžičky, masáž, výživa.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">BIAB™ (Builder In A Bottle)</h5>
+                            <span class="font-serif text-xl">1 100 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Zpevnění přírodních nehtů gelem, přirozený vzhled.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">Japonská P-Shine</h5>
+                            <span class="font-serif text-xl">750 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Zaleštění včelího vosku pro vysoký lesk a výživu.</p>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="space-y-10 slide-up" style="transition-delay: 100ms;">
+                    <h4 class="font-sans font-bold text-xl uppercase tracking-widest border-b border-noir/10 pb-4 mb-6">Nohy & Art</h4>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">SPA Pedikúra</h5>
+                            <span class="font-serif text-xl">1 200 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Relaxační koupel, peeling, úprava nehtů, masáž chodidel.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">Minimal Nail Art</h5>
+                            <span class="font-serif text-xl">+ 150 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Francie, tečky, linie. Cena za sadu.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h5 class="font-serif text-2xl">Odstranění materiálu</h5>
+                            <span class="font-serif text-xl">200 Kč</span>
+                        </div>
+                        <p class="text-noir/50 text-sm font-light">Šetrné odstranění gelu/laku z jiného studia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Gallery -->
+    <section id="gallery" class="py-24 px-4 md:px-12 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12 flex justify-between items-end">
+                <h3 class="font-serif text-5xl md:text-6xl text-noir">Portfolio</h3>
+                <a href="https://instagram.com" target="_blank" class="hidden md:inline-block text-sm uppercase tracking-widest hover:text-rouge transition">@ateliernoir_ostrava</a>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Manikúra - Minimalistický design">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Minimal</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Nail Art - Textury">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Texture</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?q=80&w=2083&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Detail nehtů">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Detail</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up" style="transition-delay: 300ms;">
+                    <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?q=80&w=1931&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Profesionální péče">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Elegance</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up" style="transition-delay: 400ms;">
+                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Francouzská manikúra">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Classic</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl h-[400px] slide-up" style="transition-delay: 500ms;">
+                    <img src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?q=80&w=2074&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Nail art detaily">
+                    <div class="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                        <span class="text-white font-serif italic text-2xl">Art</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section with Dark Mode Contrast -->
+    <section id="booking" class="bg-noir text-nude-50 py-24 px-4 md:px-12 relative overflow-hidden">
+        <!-- Background Grain/Texture (CSS simulated) -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+');"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10 text-center mb-16 slide-up">
+            <h2 class="font-serif text-5xl md:text-7xl mb-6">Čas pro sebe.</h2>
+            <p class="text-nude-50/60 font-light text-lg">Rezervace termínu je prvním krokem k relaxaci.</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-nude-50/5 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-nude-50/10 slide-up" style="transition-delay: 100ms;">
+            <form id="bookingForm" class="space-y-8">
+                <!-- Personal Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="relative group">
+                        <input type="text" id="name" required class="w-full bg-transparent border-b border-nude-50/30 py-3 text-nude-50 focus:outline-none focus:border-nude-50 transition-colors placeholder-transparent peer">
+                        <label for="name" class="absolute left-0 top-3 text-nude-50/50 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-not-placeholder-shown:-top-4 peer-not-placeholder-shown:text-xs pointer-events-none">Jméno a příjmení *</label>
+                    </div>
+                    <div class="relative group">
+                        <input type="tel" id="phone" required class="w-full bg-transparent border-b border-nude-50/30 py-3 text-nude-50 focus:outline-none focus:border-nude-50 transition-colors placeholder-transparent peer">
+                        <label for="phone" class="absolute left-0 top-3 text-nude-50/50 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-not-placeholder-shown:-top-4 peer-not-placeholder-shown:text-xs pointer-events-none">Telefon *</label>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <input type="email" id="email" class="w-full bg-transparent border-b border-nude-50/30 py-3 text-nude-50 focus:outline-none focus:border-nude-50 transition-colors placeholder-transparent peer">
+                    <label for="email" class="absolute left-0 top-3 text-nude-50/50 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-not-placeholder-shown:-top-4 peer-not-placeholder-shown:text-xs pointer-events-none">Email</label>
+                </div>
+
+                <!-- Service Selection -->
+                <div class="space-y-3">
+                    <label class="block text-nude-50/70 text-sm uppercase tracking-widest mb-4">Vyberte službu *</label>
+                    <div class="grid grid-cols-1 gap-3">
+                        <label class="relative flex items-center p-4 bg-nude-50/5 border border-nude-50/20 rounded-xl cursor-pointer hover:bg-nude-50/10 transition group">
+                            <input type="radio" name="service" value="signature-manicure" class="sr-only peer" required>
+                            <div class="w-5 h-5 border-2 border-nude-50/50 rounded-full mr-4 peer-checked:border-nude-50 peer-checked:bg-nude-50 transition flex items-center justify-center">
+                                <div class="w-2 h-2 bg-noir rounded-full opacity-0 peer-checked:opacity-100"></div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block text-nude-50 font-serif text-lg">Signature Manicure</span>
+                                <span class="text-nude-50/50 text-xs">890 Kč • 60 min</span>
+                            </div>
+                        </label>
+                        <label class="relative flex items-center p-4 bg-nude-50/5 border border-nude-50/20 rounded-xl cursor-pointer hover:bg-nude-50/10 transition group">
+                            <input type="radio" name="service" value="biab" class="sr-only peer">
+                            <div class="w-5 h-5 border-2 border-nude-50/50 rounded-full mr-4 peer-checked:border-nude-50 peer-checked:bg-nude-50 transition flex items-center justify-center">
+                                <div class="w-2 h-2 bg-noir rounded-full opacity-0 peer-checked:opacity-100"></div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block text-nude-50 font-serif text-lg">BIAB™ Zpevnění</span>
+                                <span class="text-nude-50/50 text-xs">1 100 Kč • 90 min</span>
+                            </div>
+                        </label>
+                        <label class="relative flex items-center p-4 bg-nude-50/5 border border-nude-50/20 rounded-xl cursor-pointer hover:bg-nude-50/10 transition group">
+                            <input type="radio" name="service" value="pedicure" class="sr-only peer">
+                            <div class="w-5 h-5 border-2 border-nude-50/50 rounded-full mr-4 peer-checked:border-nude-50 peer-checked:bg-nude-50 transition flex items-center justify-center">
+                                <div class="w-2 h-2 bg-noir rounded-full opacity-0 peer-checked:opacity-100"></div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block text-nude-50 font-serif text-lg">SPA Pedikúra</span>
+                                <span class="text-nude-50/50 text-xs">1 200 Kč • 75 min</span>
+                            </div>
+                        </label>
+                        <label class="relative flex items-center p-4 bg-nude-50/5 border border-nude-50/20 rounded-xl cursor-pointer hover:bg-nude-50/10 transition group">
+                            <input type="radio" name="service" value="pshine" class="sr-only peer">
+                            <div class="w-5 h-5 border-2 border-nude-50/50 rounded-full mr-4 peer-checked:border-nude-50 peer-checked:bg-nude-50 transition flex items-center justify-center">
+                                <div class="w-2 h-2 bg-noir rounded-full opacity-0 peer-checked:opacity-100"></div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block text-nude-50 font-serif text-lg">Japonská P-Shine</span>
+                                <span class="text-nude-50/50 text-xs">750 Kč • 45 min</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Date & Time Selection -->
+                <div class="space-y-6">
+                    <div class="relative">
+                        <label class="block text-nude-50/70 text-xs uppercase tracking-widest mb-4">Preferovaný datum *</label>
+                        <input type="text" id="date-display" readonly required class="w-full bg-nude-50/5 border border-nude-50/20 rounded-xl py-4 px-6 text-nude-50 focus:outline-none focus:border-nude-50 transition-colors cursor-pointer" placeholder="Vyberte datum">
+                        <input type="date" id="date-hidden" required class="absolute opacity-0 pointer-events-none">
+                        <svg class="absolute right-6 top-[52px] w-5 h-5 text-nude-50/50 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+
+                    <div class="relative">
+                        <label class="block text-nude-50/70 text-xs uppercase tracking-widest mb-4">Preferovaný čas *</label>
+                        <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="09:00" class="sr-only peer" required>
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">09:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="10:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">10:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="11:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">11:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="12:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">12:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="13:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">13:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="14:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">14:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="15:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">15:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="16:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">16:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="17:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">17:00</span>
+                                </div>
+                            </label>
+                            <label class="relative group/time">
+                                <input type="radio" name="time" value="18:00" class="sr-only peer">
+                                <div class="bg-nude-50/5 border border-nude-50/20 rounded-xl py-3 text-center cursor-pointer transition peer-checked:bg-nude-50 peer-checked:border-nude-50 hover:bg-nude-50/10 flex items-center justify-center">
+                                    <span class="text-nude-50 group-has-[:checked]/time:text-noir font-serif">18:00</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="relative group">
+                    <textarea id="note" rows="3" class="w-full bg-transparent border border-nude-50/30 rounded-xl py-3 px-4 text-nude-50 focus:outline-none focus:border-nude-50 transition-colors placeholder-transparent peer resize-none"></textarea>
+                    <label for="note" class="absolute left-4 top-3 text-nude-50/50 text-sm transition-all peer-focus:-top-6 peer-focus:left-0 peer-focus:text-xs peer-not-placeholder-shown:-top-6 peer-not-placeholder-shown:left-0 peer-not-placeholder-shown:text-xs pointer-events-none">Poznámka (volitelné)</label>
+                </div>
+
+                <button type="submit" class="w-full bg-nude-50 text-noir font-sans uppercase tracking-widest py-4 rounded-full hover:bg-rouge hover:text-nude-50 transition duration-300 font-medium mt-8">
+                    Odeslat poptávku
+                </button>
+
+                <p id="form-msg" class="text-center text-green-400 text-sm hidden">Děkujeme, ozveme se vám k potvrzení termínu.</p>
+            </form>
+        </div>
+
+        <div class="text-center mt-16 text-nude-50/40 text-sm font-sans tracking-wider slide-up">
+            <p class="mb-2">ATELIÉR NOIR, Nádražní 123, Ostrava</p>
+            <p>+420 777 123 456 &bull; hello@ateliernoir.cz</p>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scrolled State with Mobile Color Change
+        const navbar = document.getElementById('navbar');
+        const navLogo = navbar.querySelector('a');
+        const menuBtn = document.getElementById('menu-btn');
+
+        window.addEventListener('scroll', () => {
+            const heroHeight = window.innerHeight;
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-blur', 'shadow-sm');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('nav-blur', 'shadow-sm', 'py-4');
+                navbar.classList.add('py-6');
+            }
+
+            // Mobile-specific color changes based on scroll position
+            if (window.innerWidth < 768) {
+                if (window.scrollY > heroHeight - 100) {
+                    // Scrolled past hero on mobile - use dark text
+                    navLogo.classList.remove('text-nude-50');
+                    navLogo.classList.add('text-noir');
+                    navLogo.querySelector('span').classList.remove('text-nude-200');
+                    navLogo.querySelector('span').classList.add('text-clay');
+                    menuBtn.classList.remove('text-nude-50');
+                    menuBtn.classList.add('text-noir');
+                } else {
+                    // Still in hero on mobile - use light text
+                    navLogo.classList.remove('text-noir');
+                    navLogo.classList.add('text-nude-50');
+                    navLogo.querySelector('span').classList.remove('text-clay');
+                    navLogo.querySelector('span').classList.add('text-nude-200');
+                    menuBtn.classList.remove('text-noir');
+                    menuBtn.classList.add('text-nude-50');
+                }
+            }
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide-up, .reveal-img').forEach(el => observer.observe(el));
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        let isOpen = false;
+
+        function closeMobileMenu() {
+            isOpen = false;
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openMobileMenu() {
+            isOpen = true;
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        menuBtn.addEventListener('click', () => {
+            if(isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+
+        links.forEach(l => l.addEventListener('click', closeMobileMenu));
+
+        // Custom Date Picker Logic
+        const dateDisplay = document.getElementById('date-display');
+        const dateHidden = document.getElementById('date-hidden');
+
+        dateDisplay.addEventListener('click', () => {
+            dateHidden.showPicker();
+        });
+
+        dateHidden.addEventListener('change', (e) => {
+            const date = new Date(e.target.value);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateDisplay.value = date.toLocaleDateString('cs-CZ', options);
+        });
+
+        // Simple Form Logic
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('form-msg');
+
+            const originalText = btn.innerText;
+            btn.innerText = "Zpracovávám...";
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                e.target.reset();
+                dateDisplay.value = ''; // Clear custom date display
+                msg.classList.remove('hidden');
+                setTimeout(() => msg.classList.add('hidden'), 4000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
