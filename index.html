@@ -92,29 +92,30 @@
         .shimmer-effect::after {
             content: '';
             position: absolute;
-            top: -20%;
+            top: -50%;
             left: -50%;
             width: 200%;
-            height: 140%;
+            height: 200%;
             background: linear-gradient(
-                90deg,
+                110deg,
                 transparent 0%,
-                transparent 40%,
-                rgba(255, 255, 255, 0.15) 45%,
-                rgba(255, 255, 255, 0.3) 50%,
-                rgba(255, 255, 255, 0.15) 55%,
-                transparent 60%,
+                transparent 42%,
+                rgba(255, 255, 255, 0.08) 46%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.08) 54%,
+                transparent 58%,
                 transparent 100%
             );
-            animation: shimmer 15s ease-in-out infinite;
+            animation: shimmer 12s ease-in-out infinite;
+            animation-delay: 2s;
             pointer-events: none;
         }
         @keyframes shimmer {
             0% {
-                transform: translateX(-100%);
+                transform: translateX(-100%) translateY(-100%) rotate(20deg);
             }
             100% {
-                transform: translateX(100%);
+                transform: translateX(100%) translateY(100%) rotate(20deg);
             }
         }
     </style>
