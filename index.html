@@ -111,7 +111,7 @@
             pointer-events: none;
         }
         @keyframes shimmer {
-            0% {
+            0%, 16.67% {
                 transform: translateX(-100%) translateY(-100%) rotate(20deg);
             }
             100% {
@@ -124,7 +124,7 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center" id="navbar">
-        <a href="#" class="font-serif text-3xl md:text-4xl font-semibold tracking-tight z-50 relative text-nude-50 md:text-noir">
+        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="font-serif text-3xl md:text-4xl font-semibold tracking-tight z-50 relative text-nude-50 md:text-noir cursor-pointer">
             NOIR<span class="text-nude-200 md:text-clay text-4xl">.</span>
         </a>
 
