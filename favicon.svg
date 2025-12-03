@@ -1,5 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#1a1a1a"/>
-  <text x="50" y="70" font-family="serif" font-size="60" font-weight="600" fill="#f5f1ed" text-anchor="middle">N</text>
-  <circle cx="85" cy="20" r="8" fill="#c8a898"/>
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E5D4A3;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C8AA6E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B09858;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100" height="100" fill="#121212"/>
+
+  <!-- Elegant border frame -->
+  <rect x="8" y="8" width="84" height="84" fill="none" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.6"/>
+  <rect x="12" y="12" width="76" height="76" fill="none" stroke="url(#goldGradient)" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Letter E with elegant serif style -->
+  <text x="50" y="72" font-family="serif" font-size="56" font-weight="300" fill="url(#goldGradient)" text-anchor="middle" style="font-style: italic;">E</text>
+
+  <!-- Small decorative diamond accent -->
+  <circle cx="72" cy="28" r="2.5" fill="#C8AA6E" opacity="0.8"/>
+  <circle cx="72" cy="28" r="1.2" fill="#F9F8F6" opacity="0.9"/>
 </svg>
