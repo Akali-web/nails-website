@@ -374,7 +374,7 @@ function renderReservation() {
                 </div>
 
                 <div class="group relative">
-                  <input type="text" x-model="formData.name" placeholder=" " autocomplete="name"
+                  <input type="text" name="name" x-model="formData.name" placeholder=" " autocomplete="name"
                          class="block w-full px-0 py-3 bg-transparent border-b border-gray-700 focus:border-brand-gold focus:outline-none text-white transition-colors peer" />
                   <label class="absolute left-0 top-3 text-gray-500 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-gold peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-gold cursor-text">Jméno a Příjmení *</label>
                   <p x-show="errors.name" class="text-red-400 text-xs mt-1 absolute" x-text="errors.name"></p>
@@ -382,13 +382,13 @@ function renderReservation() {
 
                 <div class="grid grid-cols-2 gap-6">
                   <div class="group relative">
-                    <input type="tel" x-model="formData.phone" placeholder=" " autocomplete="tel"
+                    <input type="tel" name="phone" x-model="formData.phone" placeholder=" " autocomplete="tel"
                            class="block w-full px-0 py-3 bg-transparent border-b border-gray-700 focus:border-brand-gold focus:outline-none text-white transition-colors peer" />
                     <label class="absolute left-0 top-3 text-gray-500 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-gold peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-gold cursor-text">Telefon *</label>
                     <p x-show="errors.phone" class="text-red-400 text-xs mt-1 absolute" x-text="errors.phone"></p>
                   </div>
                   <div class="group relative">
-                    <input type="email" x-model="formData.email" placeholder=" " autocomplete="email"
+                    <input type="email" name="email" x-model="formData.email" placeholder=" " autocomplete="email"
                            class="block w-full px-0 py-3 bg-transparent border-b border-gray-700 focus:border-brand-gold focus:outline-none text-white transition-colors peer" />
                     <label class="absolute left-0 top-3 text-gray-500 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-gold peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-gold cursor-text">Email *</label>
                     <p x-show="errors.email" class="text-red-400 text-xs mt-1 absolute" x-text="errors.email"></p>
@@ -396,7 +396,7 @@ function renderReservation() {
                 </div>
 
                 <div class="group relative pt-4">
-                  <textarea x-model="formData.message" rows="2" placeholder=" "
+                  <textarea name="message" x-model="formData.message" rows="2" placeholder=" "
                             class="block w-full px-0 py-3 bg-transparent border-b border-gray-700 focus:border-brand-gold focus:outline-none text-white transition-colors peer resize-none"></textarea>
                   <label class="absolute left-0 top-7 text-gray-500 text-sm transition-all peer-focus:top-0 peer-focus:text-xs peer-focus:text-brand-gold peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-gold cursor-text">Poznámka (Volitelné)</label>
                 </div>
