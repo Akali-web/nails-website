@@ -56,9 +56,13 @@
   <style>
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
     body {
       background-color: #F9F8F6;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
     ::selection {
       background: #C8AA6E;
@@ -71,10 +75,15 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Prevent horizontal overflow on all sections */
+    section {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
   </style>
 </head>
 
-<body class="bg-brand-cream text-brand-dark antialiased">
+<body class="bg-brand-cream text-brand-dark antialiased overflow-x-hidden">
 
   <!-- Navigation -->
   <nav x-data="{
@@ -191,12 +200,12 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+  <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden max-w-full">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-brand-dark/30 z-10"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 z-10"></div>
       <img
-        src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=2070&auto=format&fit=crop"
+        src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1920&h=1080&fit=crop&auto=format"
         alt="Luxury Nail Art Editorial"
         class="hero-bg w-full h-full object-cover"
       />
@@ -394,7 +403,7 @@
 
           <div class="mt-12 opacity-60 hover:opacity-100 transition-opacity">
             <img
-              src="https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=2070&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=800&h=600&fit=crop&auto=format"
               alt="Polish Collection"
               class="w-full h-64 object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
@@ -411,21 +420,20 @@
   <!-- Gallery Section -->
   <section id="gallery" class="py-32 bg-white overflow-hidden">
     <div class="max-w-[1800px] mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-20 px-4 md:px-12">
-        <h2 class="font-serif text-5xl md:text-8xl text-brand-dark opacity-90">
-          <span class="block italic">Vybrané</span>
-          <span class="block ml-12 md:ml-32">Práce</span>
-        </h2>
-        <div class="mb-4 md:mb-8 text-right">
-          <span class="block text-brand-gold text-xs uppercase tracking-[0.3em]">Portfolio</span>
-          <span class="block text-brand-taupe text-xs mt-2">@EleganceNailsOstrava</span>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 px-4 md:px-12 border-b border-brand-dark/10 pb-8">
+        <div>
+          <span class="text-brand-gold text-xs uppercase tracking-[0.3em] mb-4 block">Portfolio</span>
+          <h2 class="font-serif text-5xl md:text-7xl text-brand-dark italic">Vybrané Práce</h2>
         </div>
+        <p class="md:max-w-xs text-sm text-gray-500 mt-6 md:mt-0 leading-relaxed">
+          Sledujte naši denní tvorbu @EleganceNailsOstrava
+        </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
         <div class="gallery-item space-y-8 md:mt-24">
           <div class="relative aspect-[3/4] group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=2070&auto=format&fit=crop" alt="Minimalist Nude" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=800&h=1200&fit=crop&auto=format" alt="Minimalist Nude" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
           <div class="text-xs uppercase tracking-widest text-brand-dark text-center">Minimalist Nude</div>
@@ -433,7 +441,7 @@
 
         <div class="gallery-item space-y-8">
           <div class="relative aspect-[3/4] group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=2070&auto=format&fit=crop" alt="Noir Elegance" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?w=800&h=1200&fit=crop&auto=format" alt="Noir Elegance" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
           <div class="text-xs uppercase tracking-widest text-brand-dark text-center">Noir Elegance</div>
@@ -444,7 +452,7 @@
 
         <div class="gallery-item space-y-8 md:mt-16">
           <div class="relative aspect-[3/4] group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2069&auto=format&fit=crop" alt="Spring Pastels" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&h=1200&fit=crop&auto=format" alt="Spring Pastels" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
           <div class="text-xs uppercase tracking-widest text-brand-dark text-center">Spring Pastels</div>
@@ -457,7 +465,7 @@
             </p>
           </div>
           <div class="relative aspect-[3/4] group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=2070&auto=format&fit=crop" alt="Classic Rouge" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&h=1200&fit=crop&auto=format" alt="Classic Rouge" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
             <div class="absolute inset-0 bg-brand-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
           <div class="text-xs uppercase tracking-widest text-brand-dark text-center">Classic Rouge</div>
@@ -469,9 +477,9 @@
   <!-- Testimonials Section -->
   <section id="reviews" class="py-32 bg-brand-cream border-t border-brand-dark/5">
     <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-20">
-        <span class="text-brand-gold text-xs uppercase tracking-[0.3em]">Hlasy</span>
-        <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mt-4">Zkušenosti Klientek</h2>
+      <div class="mb-20 border-b border-brand-dark/10 pb-8">
+        <span class="text-brand-gold text-xs uppercase tracking-[0.3em] mb-4 block">Hlasy</span>
+        <h2 class="font-serif text-5xl md:text-7xl text-brand-dark italic">Zkušenosti Klientek</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-12">
